@@ -1,4 +1,6 @@
-document.querySelector(".titulo").textContent = "Giovanna Nutricionista";
+var titulo = document.querySelector(".titulo").textContent;
+titulo = "Giovanna Nutricionista";
+document.querySelector(".titulo").textContent = titulo;
 
 var pacientes = document.querySelectorAll(".paciente");
 
@@ -10,9 +12,11 @@ for (var i = 0; i < pacientes.length; i++) {
     if (peso < 0 || peso > 400) {
         //console.log("Peso inválido!!");
         pacientes[i].querySelector(".info-imc").textContent = "Peso inválido";
+        pacientes[i].classList.add("paciente-invalido");     
 
     } else if (altura < 0 || altura > 3) {
         pacientes[i].querySelector(".info-imc").textContent = "Altura inválida";
+        pacientes[i].classList.add("paciente-invalido"); 
     }
     else {
         var imc = peso / (altura * altura);
@@ -34,5 +38,11 @@ for (var i = 0; i < pacientes.length; i++) {
             pacientes[i].querySelector(".info-result").textContent = "Obesidade III";
         }
     }       
+}
+
+titulo.addEventListener("click", mostraMensagem);
+
+function mostraMensagem(){
+    alert("Olá, fui clicado!!");
 }
 
