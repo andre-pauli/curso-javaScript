@@ -16,7 +16,7 @@ for (var i = 0; i < pacientes.length; i++) {
     }
     else {
         var imc = peso / (altura * altura);
-        pacientes[i].querySelector(".info-imc").textContent = imc;
+        pacientes[i].querySelector(".info-imc").textContent = imc.toFixed(2);
 
         if(imc < 17){
             pacientes[i].querySelector(".info-result").textContent = "Muito abaixo do peso";
