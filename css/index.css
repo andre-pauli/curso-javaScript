@@ -136,3 +136,12 @@ button[disabled=disabled], button:disabled {
 .paciente-invalido{
 	background-color: lightcoral;
 }
+a{
+	text-decoration: none;
+}
+
+#salvar-paciente {
+	display: inline;
+}
+
+
