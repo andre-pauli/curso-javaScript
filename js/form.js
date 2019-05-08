@@ -9,37 +9,29 @@ botaoAdicionar.addEventListener("click", function (event) {
 
     var tabelaPaciente = criaTabelaPaciente();
 
-    adicionaAtributosTabela(paciente, tabelaPaciente);
+    adicionaAtributosTabela(paciente, tabelaPaciente);   
 
-    adicionaAtributosTabela(paciente, tabelaPaciente);
+    penduraTabela(tabelaPaciente)
 
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
-    pacienteTr.appendChild(resultTd);
+    
 
     var tabela = document.querySelector("#tabela-pacientes");
 
-    tabela.appendChild(pacienteTr);
+    tabela.appendChild(tabelaPaciente.pacienteTr);
 });
 
+//PEGANDO INFORMAÇÕES DO FORMULÁRIO
 function obtemPacienteDoForm(form) {
-
     var paciente = {
         nome: form.nome.value,
         peso: form.peso.value,
         altura: form.altura.value,
-        porc_gordura: form.gordura.value,
-        imc: calculaImc(peso, altura),
-        resultado: validaImc(imc)
+        porc_gordura: form.gordura.value        
     }
-
     return paciente;
-
 }
 
+//CRIANDO NOVA PACIENTE DINÂMICO
 function criaTabelaPaciente() {
 
     var tabela = {
@@ -59,9 +51,6 @@ function adicionaAtributosTabela(paciente, tabelaPaciente) {
     tabelaPaciente.pesoTd.textContent = paciente.peso;
     tabelaPaciente.alturaTd.textContent = paciente.altura;
     tabelaPaciente.gorduraTd.textContent = paciente.porc_gordura;
-}
-
-function validaPaciente(paciente, tabelaPaciente) {
     
     if (!validaPeso(paciente.peso)) {
         tabelaPaciente.imcTd.textContent = "Peso inválido";
@@ -75,10 +64,20 @@ function validaPaciente(paciente, tabelaPaciente) {
         tabelaPaciente.classList.add("paciente-invalido");
     }
     else {
-        tabelaPaciente.imcTd.textContent = imc;
-        tabelaPaciente.resultTd.textContent = resultado;
+        tabelaPaciente.imcTd.textContent = calculaImc(paciente.pesoTd.textContent, paciente.alturaTd.textContent);
+        tabelaPaciente.resultTd.textContent = validaImc(tabelaPaciente.imcTd.textContent);
     }
 
+}
+
+function penduraTabela(tabelaPaciente){
+
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.nomeTd);
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.pesoTd);
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.alturaTd);
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.gorduraTd);
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.imcTd);
+    tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.resultTd);
 }
 
 
