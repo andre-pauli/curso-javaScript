@@ -37,12 +37,78 @@ for (var i = 0; i < pacientes.length; i++) {
         }if(imc > 40){
             pacientes[i].querySelector(".info-result").textContent = "Obesidade III";
         }
-    }       
+   }       
 }
 
-titulo.addEventListener("click", mostraMensagem);
+//MONITORANDO O EVENTO DE UM OBJETO E ATRIBUINDO UMA FUNÇAO, USANDO A FUNCÃO NOMEADA mostraMensagem
+document.querySelector(".titulo").addEventListener("click", mostraMensagem);
 
-function mostraMensagem(){
-    alert("Olá, fui clicado!!");
+//funcão nomeada
+function mostraMensagem (){
+    console.log("Função nomeada!!");
 }
 
+// MONITORANDO O EVENTO DE UM OBJETO E ATRIBUINDO UMA FUNÇAO, USANDO A FUNCÃO ANÔNIMA
+// document.querySelector(".titulo").addEventListener("click", function(){
+//   console.log("Funcção Anônima!!")
+// })
+
+var botaoAdicionar = document.querySelector("#adicionar-paciente");
+
+botaoAdicionar.addEventListener("click", function(event){
+    event.preventDefault();
+
+    var form = document.querySelector("#form-adiciona");
+    var nome = form.nome.value;
+    var peso = form.peso.value;
+    var altura = form.altura.value;
+    var porc_gordura = form.gordura.value;
+
+    var pacienteTr = document.createElement("tr");
+
+    var nomeTd = document.createElement("td");
+    var pesoTd = document.createElement("td");
+    var alturaTd = document.createElement("td");
+    var gorduraTd = document.createElement("td");
+    var imcTd = document.createElement("td");
+    var resultTd = document.createElement("td");
+
+    nomeTd.textContent = nome;
+    pesoTd.textContent = peso;
+    alturaTd.textContent = altura;
+    gorduraTd.textContent = porc_gordura;
+    var calcImc = peso / (altura*altura);
+    imcTd.textContent = calcImc.toFixed(2); 
+    
+
+    if(imcTd.textContent < 17){
+        resultTd.textContent = "Muito abaixo do peso";
+    } else if(imcTd.textContent > 17 && imcTd.textContent < 18.49){
+        resultTd.textContent = "Abaixo do peso";
+    } else if(imcTd.textContent > 18.5 && imcTd.textContent < 24.99){
+        resultTd.textContent = "Peso normal";
+    } else if(imcTd.textContent > 25 && imcTd.textContent < 29.99){
+        resultTd.textContent = "Acima do peso";
+    } else if(imcTd.textContent > 30 && imcTd.textContent < 34.99){
+        resultTd.textContent = "Obesidade I";
+    } else if(imcTd.textContent > 35 && imcTd.textContent < 39.99){
+        resultTd.textContent = "Obesidade II";
+    }if(imcTd.textContent > 40){
+        resultTd.textContent = "Obesidade III";
+    }
+
+
+    pacienteTr.appendChild(nomeTd);
+    pacienteTr.appendChild(pesoTd);
+    pacienteTr.appendChild(alturaTd);
+    pacienteTr.appendChild(gorduraTd);
+    pacienteTr.appendChild(imcTd);
+    pacienteTr.appendChild(resultTd);
+
+
+
+    var tabela = document.querySelector("#tabela-pacientes");
+
+    tabela.appendChild(pacienteTr);
+    
+});
