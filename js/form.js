@@ -13,6 +13,7 @@ botaoAdicionar.addEventListener("click", function (event) {
 
     penduraTabela(tabelaPaciente)
 
+    //TESTANDO ALIAS DO GIT
     
 
     var tabela = document.querySelector("#tabela-pacientes");
