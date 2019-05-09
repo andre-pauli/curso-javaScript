@@ -142,3 +142,11 @@ a {
 #salvar-paciente {
 	display: inline;
 }
+
+tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+tr:nth-child(even) {
+	background-color: bisque;
+}
