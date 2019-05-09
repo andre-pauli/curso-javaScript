@@ -6,13 +6,18 @@ botaoAdicionar.addEventListener("click", function (event) {
     var form = document.querySelector("#form-adiciona");
 
     var paciente = obtemPacienteDoForm(form);
-    var pacienteTr = criaTr(paciente);
 
-    var tabela = document.querySelector("#tabela-pacientes");
+    if(validaPaciente(paciente)){
+        
+        var pacienteTr = criaTr(paciente);
+        var tabela = document.querySelector("#tabela-pacientes");    
+        tabela.appendChild(pacienteTr);
+        form.reset(); 
 
-    tabela.appendChild(pacienteTr);
-
-    limpaform(form);
+    } else {
+        alert("Dados inválidos!!");
+        form.reset(); 
+     }
 });
 
 //PEGANDO INFORMAÇÕES DIGITADAS FORMULÁRIO
@@ -33,19 +38,6 @@ function criaTr(paciente) {
 
     var pacienteTr = document.createElement("tr");
     pacienteTr.classList.add("paciente");
-
-    if (!validaPeso(criaTd(paciente.peso, "info-Peso").textContent)) {
-        pacienteTr.appendChild(criaTd("Peso inválido", "info-imc"));
-        pacienteTr.appendChild(criaTd("Peso inválido", "info-result"));
-        pacienteTr.classList.add("paciente-invalido");
-    }
-
-    else if (!validaAltura(criaTd(paciente.altura, "info-altura").textContent)) {
-        pacienteTr.appendChild(criaTd("Altura inválida", "info-imc"));
-        pacienteTr.appendChild(criaTd("Altura inválida", "info-result"));
-        pacienteTr.classList.add("paciente-invalido");
-    }
-
     pacienteTr.appendChild(criaTd(paciente.nome, "info-nome"));
     pacienteTr.appendChild(criaTd(paciente.peso, "info-Peso"));
     pacienteTr.appendChild(criaTd(paciente.altura, "info-altura"));
@@ -56,14 +48,6 @@ function criaTr(paciente) {
     return pacienteTr;
 }
 
-//LIMPA TODOS OS CAMPOS DO FORMULÁRIO
-function limpaform(form) {
-    form.nome.value = null;
-    form.altura.value = null;
-    form.peso.value = null;
-    form.gordura.value = null;
-}
-
 //RECEBE O CONTEÚDO E A CLASSE QUE CADA TD DEVE POSSUIR, E INCLUI OS MESMO NA TD.
 function criaTd(dado, classe) {
     var td = document.createElement("td");
@@ -71,3 +55,4 @@ function criaTd(dado, classe) {
     td.classList.add(classe);
     return td;
 }
+
