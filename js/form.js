@@ -11,10 +11,7 @@ botaoAdicionar.addEventListener("click", function (event) {
 
     adicionaAtributosTabela(paciente, tabelaPaciente);   
 
-    penduraTabela(tabelaPaciente)
-
-    //TESTANDO ALIAS DO GIT
-    
+    penduraTabela(tabelaPaciente)    
 
     var tabela = document.querySelector("#tabela-pacientes");
 
