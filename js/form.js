@@ -52,20 +52,21 @@ function adicionaAtributosTabela(paciente, tabelaPaciente) {
     tabelaPaciente.alturaTd.textContent = paciente.altura;
     tabelaPaciente.gorduraTd.textContent = paciente.porc_gordura;
     
-    if (!validaPeso(paciente.peso)) {
+    if (!validaPeso(tabelaPaciente.pesoTd.textContent)) {
         tabelaPaciente.imcTd.textContent = "Peso inválido";
         tabelaPaciente.resultTd.textContent = "Peso inválido";
-        tabelaPaciente.classList.add("paciente-invalido");
+        tabelaPaciente.pacienteTr.classList.add("paciente-invalido");
     }
 
-    else if (!validaAltura(altura)) {
+    else if (!validaAltura(tabelaPaciente.alturaTd.textContent)) {
         tabelaPaciente.imcTd.textContent = "Altura inválida";
         tabelaPaciente.resultTd.textContent = "Altura inválida";
-        tabelaPaciente.classList.add("paciente-invalido");
-    }
+        tabelaPaciente.pacienteTr.classList.add("paciente-invalido");
+    }   
     else {
-        tabelaPaciente.imcTd.textContent = calculaImc(paciente.pesoTd.textContent, paciente.alturaTd.textContent);
-        tabelaPaciente.resultTd.textContent = validaImc(tabelaPaciente.imcTd.textContent);
+
+        tabelaPaciente.imcTd.textContent = calculaImc(tabelaPaciente.pesoTd.textContent, tabelaPaciente.alturaTd.textContent);
+        tabelaPaciente.resultTd.textContent = validaImc(tabelaPaciente.imcTd.textContent);       
     }
 
 }
