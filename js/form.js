@@ -26,7 +26,7 @@ function obtemPacienteDoForm(form) {
         nome: form.nome.value,
         peso: form.peso.value,
         altura: form.altura.value,
-        porc_gordura: form.gordura.value        
+        porc_gordura: form.gordura.value+"%"        
     }
     return paciente;
 }
