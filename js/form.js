@@ -9,13 +9,15 @@ botaoAdicionar.addEventListener("click", function (event) {
 
     var tabelaPaciente = criaTabelaPaciente();
 
-    adicionaAtributosTabela(paciente, tabelaPaciente);   
+    adicionaAtributosTabela(paciente, tabelaPaciente);
 
-    penduraTabela(tabelaPaciente)    
+    penduraTabela(tabelaPaciente)
 
     var tabela = document.querySelector("#tabela-pacientes");
 
     tabela.appendChild(tabelaPaciente.pacienteTr);
+
+    limpaform(form);
 });
 
 //PEGANDO INFORMAÇÕES DO FORMULÁRIO
@@ -24,7 +26,7 @@ function obtemPacienteDoForm(form) {
         nome: form.nome.value,
         peso: form.peso.value,
         altura: form.altura.value,
-        porc_gordura: form.gordura.value+"%"        
+        porc_gordura: form.gordura.value + "%"
     }
     return paciente;
 }
@@ -49,7 +51,7 @@ function adicionaAtributosTabela(paciente, tabelaPaciente) {
     tabelaPaciente.pesoTd.textContent = paciente.peso;
     tabelaPaciente.alturaTd.textContent = paciente.altura;
     tabelaPaciente.gorduraTd.textContent = paciente.porc_gordura;
-    
+
     if (!validaPeso(tabelaPaciente.pesoTd.textContent)) {
         tabelaPaciente.imcTd.textContent = "Peso inválido";
         tabelaPaciente.resultTd.textContent = "Peso inválido";
@@ -60,16 +62,16 @@ function adicionaAtributosTabela(paciente, tabelaPaciente) {
         tabelaPaciente.imcTd.textContent = "Altura inválida";
         tabelaPaciente.resultTd.textContent = "Altura inválida";
         tabelaPaciente.pacienteTr.classList.add("paciente-invalido");
-    }   
+    }
     else {
 
         tabelaPaciente.imcTd.textContent = calculaImc(tabelaPaciente.pesoTd.textContent, tabelaPaciente.alturaTd.textContent);
-        tabelaPaciente.resultTd.textContent = validaImc(tabelaPaciente.imcTd.textContent);       
+        tabelaPaciente.resultTd.textContent = validaImc(tabelaPaciente.imcTd.textContent);
     }
 
 }
 
-function penduraTabela(tabelaPaciente){
+function penduraTabela(tabelaPaciente) {
 
     tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.nomeTd);
     tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.pesoTd);
@@ -79,6 +81,12 @@ function penduraTabela(tabelaPaciente){
     tabelaPaciente.pacienteTr.appendChild(tabelaPaciente.resultTd);
 }
 
+function limpaform(form) {
+    form.nome.value = null;
+    form.altura.value = null;
+    form.peso.value = null;
+    form.gordura.value = null;
+}
 
 
 
