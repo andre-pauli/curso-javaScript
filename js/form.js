@@ -15,7 +15,7 @@ botaoAdicionar.addEventListener("click", function (event) {
     limpaform(form);
 });
 
-//PEGANDO INFORMAÇÕES DO FORMULÁRIO
+//PEGANDO INFORMAÇÕES DIGITADAS FORMULÁRIO
 function obtemPacienteDoForm(form) {
     var paciente = {
         nome: form.nome.value,
@@ -28,45 +28,35 @@ function obtemPacienteDoForm(form) {
     return paciente;
 }
 
-//CRIANDO NOVA PACIENTE DINÂMICO
+//CRIA UMA TR, CHAMA O MÉTODO QUE CRIA AS TD'S, VALIDA OS DADOS E VINCULA AS TD'S COM A TR
 function criaTr(paciente) {
 
     var pacienteTr = document.createElement("tr");
     pacienteTr.classList.add("paciente");
 
-    var nomeTd = criaTd(paciente.nome, "info-nome");
-    var pesoTd = criaTd(paciente.peso, "info-Peso");
-    var alturaTd = criaTd(paciente.altura, "info-altura");
-    var gorduraTd = criaTd(paciente.porc_gordura, "info-gordura");
-
-
-
-    if (!validaPeso(pesoTd.textContent)) {
-        var imcTd = criaTd("Peso inválido", "info-imc");
-        var resultTd = criaTd("Peso inválido", "info-result");
+    if (!validaPeso(criaTd(paciente.peso, "info-Peso").textContent)) {
+        pacienteTr.appendChild(criaTd("Peso inválido", "info-imc"));
+        pacienteTr.appendChild(criaTd("Peso inválido", "info-result"));
         pacienteTr.classList.add("paciente-invalido");
     }
 
-    else if (!validaAltura(alturaTd.textContent)) {
-        var imcTd = criaTd("Altura inválida", "info-imc");
-        var resultTd = criaTd("Altura inválida", "info-result");
+    else if (!validaAltura(criaTd(paciente.altura, "info-altura").textContent)) {
+        pacienteTr.appendChild(criaTd("Altura inválida", "info-imc"));
+        pacienteTr.appendChild(criaTd("Altura inválida", "info-result"));
         pacienteTr.classList.add("paciente-invalido");
     }
-    else {
-        var imcTd = criaTd(paciente.imc, "info-imc");
-        var resultTd = criaTd(paciente.resultado, "info-result");
-    }
 
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
-    pacienteTr.appendChild(resultTd);
+    pacienteTr.appendChild(criaTd(paciente.nome, "info-nome"));
+    pacienteTr.appendChild(criaTd(paciente.peso, "info-Peso"));
+    pacienteTr.appendChild(criaTd(paciente.altura, "info-altura"));
+    pacienteTr.appendChild(criaTd(paciente.porc_gordura, "info-gordura"));
+    pacienteTr.appendChild(criaTd(paciente.imc, "info-imc"));
+    pacienteTr.appendChild(criaTd(paciente.resultado, "info-result"));
 
     return pacienteTr;
 }
 
+//LIMPA TODOS OS CAMPOS DO FORMULÁRIO
 function limpaform(form) {
     form.nome.value = null;
     form.altura.value = null;
@@ -74,6 +64,7 @@ function limpaform(form) {
     form.gordura.value = null;
 }
 
+//RECEBE O CONTEÚDO E A CLASSE QUE CADA TD DEVE POSSUIR, E INCLUI OS MESMO NA TD.
 function criaTd(dado, classe) {
     var td = document.createElement("td");
     td.textContent = dado;
