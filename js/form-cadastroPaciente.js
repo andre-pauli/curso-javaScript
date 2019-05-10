@@ -7,9 +7,13 @@ botaoAdicionar.addEventListener("click", function (event) {
 
     var paciente = obtemPacienteDoForm(form);
 
-    if(validaPaciente(paciente)){
-        
+    console.log(paciente);
+    
+
+    if(validaPaciente(paciente)){        
         var pacienteTr = criaTr(paciente);
+        console.log(pacienteTr);
+        
         var tabela = document.querySelector("#tabela-pacientes");    
         tabela.appendChild(pacienteTr);
         form.reset(); 
