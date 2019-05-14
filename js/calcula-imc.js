@@ -6,14 +6,12 @@ for (var i = 0; i < pacientes.length; i++) {
         nome: pacientes[i].querySelector(".info-nome").textContent,
         peso: pacientes[i].querySelector(".info-peso").textContent,
         altura: pacientes[i].querySelector(".info-altura").textContent,
-        porc_gordura: pacientes[i].querySelector(".info-altura").textContent
+        gordura: pacientes[i].querySelector(".info-gordura").textContent
     }
 
     if (validaPaciente(paciente)) {
-
         var imc = calculaImc(paciente.peso, paciente.altura);
         var result = validaImc(imc);
-
         pacientes[i].querySelector(".info-imc").textContent = imc;
         pacientes[i].querySelector(".info-result").textContent = result;
 
@@ -27,9 +25,7 @@ for (var i = 0; i < pacientes.length; i++) {
 
 function calculaImc(peso, altura) {
     var imc = 0;
-
     imc = peso / (altura * altura);
-
     return imc.toFixed(2);
 }
 
@@ -62,19 +58,39 @@ function validaImc(imc) {
 }
 
 function validaPeso(peso) {
-    if(peso <=0 || peso > 500){
-        return false;        
-    } else{
+
+    if (peso <= 0 || peso > 500) {
+        return false;
+    } else {
         return true;
     }
 }
 
-function validaPaciente(paciente) {  
-    
-    if(validaPeso(paciente.peso)){
-        return true;
-    } else{
+function validaAltura(altura) {
+    if (altura <= 0 || altura > 3) {
         return false;
+    } else {
+        return true;
     }
-    
+}
+
+
+function validaPaciente(paciente) {
+
+    var erros = [];
+
+    if(paciente.nome.length <= 0){
+        erros.push("O nome deve ser preenchido!");
+    }   
+
+    if (!validaPeso(paciente.peso)) erros.push("Peso inválido!");
+
+    if (!validaAltura(paciente.altura)) erros.push("Altura inválida!");
+
+    if(paciente.gordura.length <= 0){
+        erros.push("A porcentagem de gordura deve ser preenchida!");
+    }       
+
+    return erros;
+
 }
