@@ -9,18 +9,19 @@ for (var i = 0; i < pacientes.length; i++) {
         gordura: pacientes[i].querySelector(".info-gordura").textContent
     }
 
-    if (validaPaciente(paciente)) {
+    var erros = validaPaciente(paciente);
+
+    if (erros.length <= 0) {
         var imc = calculaImc(paciente.peso, paciente.altura);
         var result = validaImc(imc);
         pacientes[i].querySelector(".info-imc").textContent = imc;
         pacientes[i].querySelector(".info-result").textContent = result;
-
     } else {
         alert("Dados inválidos!!");
         pacientes[i].querySelector(".info-imc").textContent = "Dados inválidos";
         pacientes[i].querySelector(".info-result").textContent = "Dados inválidos";
         document.querySelector("#form-adiciona").reset();
-    }
+    }   
 }
 
 function calculaImc(peso, altura) {

@@ -5,12 +5,11 @@ document.querySelector("#adicionar-paciente").addEventListener("click", function
 
     var paciente = obtemPacienteDoForm(form);
 
-    var erros = validaPaciente(paciente);   
+    var erros = validaPaciente(paciente);
 
-    if (erros.length <= 0 ) {
-        var pacienteTr = criaTr(paciente);
-        document.querySelector("#tabela-pacientes").appendChild(pacienteTr);
-        form.reset(); 
+    if (erros.length <= 0) {
+        addPacienteNaTabela(paciente);
+        form.reset();
         var lista = document.querySelector("#erro-dados");
         lista.innerHTML = "";
     } else {
@@ -39,10 +38,14 @@ function criaTr(paciente) {
     pacienteTr.appendChild(criaTd(paciente.nome, "info-nome"));
     pacienteTr.appendChild(criaTd(paciente.peso, "info-Peso"));
     pacienteTr.appendChild(criaTd(paciente.altura, "info-altura"));
-    pacienteTr.appendChild(criaTd(paciente.gordura+"%", "info-gordura"));
-    pacienteTr.appendChild(criaTd(paciente.imc, "info-imc"));
-    pacienteTr.appendChild(criaTd(paciente.resultado, "info-result"));
-
+    pacienteTr.appendChild(criaTd(paciente.gordura + "%", "info-gordura"));
+    pacienteTr.appendChild(criaTd(paciente.imc, "info-imc"));  
+    if(paciente.resultado != null){
+        pacienteTr.appendChild(criaTd(paciente.resultado, "info-result"));
+    }else{
+        resultado = validaImc(paciente.imc);
+        pacienteTr.appendChild(criaTd(resultado, "info-result"));
+    }
     return pacienteTr;
 }
 
@@ -54,16 +57,21 @@ function criaTd(dado, classe) {
     return td;
 }
 
-function exibeMensagensDeErro(erros){
+function exibeMensagensDeErro(erros) {
 
     var lista = document.querySelector("#erro-dados");
     lista.innerHTML = "";
 
-    erros.forEach(function(erro){
+    erros.forEach(function (erro) {
         var li = document.createElement("li");
-        li.textContent = erro; 
+        li.textContent = erro;
         lista.appendChild(li);
     });
-        
+
+}
+
+function addPacienteNaTabela(paciente) {
+    var pacienteTr = criaTr(paciente);
+    document.querySelector("#tabela-pacientes").appendChild(pacienteTr);
 }
 
